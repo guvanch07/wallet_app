@@ -35,6 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_svg: ^1.1.5
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +63,7 @@ flutter:
   assets:
     - assets/
     - assets/png/
+    - assets/navbar/
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -74,17 +76,18 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: Helios
+      fonts:
+        - asset: fonts/Helios-Extra_Bold_Italic.ttf
+        - asset: fonts/Helios-Extra_Bold.ttf
+        - asset: fonts/Helios-Extra.ttf
+        - asset: fonts/Helios-Extra.ttf
+          style: italic
+    - family: Monoska
+      fonts:
+        - asset: fonts/Monoska.ttf
+          weight: 400
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -25,7 +25,7 @@ class GlowingActionButton extends StatelessWidget {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: AppColors.accent.withOpacity(0.4),
+            color: AppColors.accent.withOpacity(0.3),
             spreadRadius: 8,
             blurRadius: 24,
           ),

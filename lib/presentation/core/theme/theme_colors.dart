@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 abstract class AppColors {
   static const accent = Color(0xff623BFF);
+  static const indicator = Color(0xff6993FF);
   static const textMain = Color.fromARGB(255, 242, 245, 244);
   static const card = Color(0xFF2A2A34);
-  static const mainbgc = Color(0xFF19191C);
+  static const mainbgc = Color(0xFF0E0E13);
+  static const secondbgc = Color(0xFF19191C);
   static const red = Color(0xffFF0000);
   static const divider = Color(0xff4A4A4A);
   static final Shader linearGradientText = const LinearGradient(
@@ -28,7 +30,14 @@ abstract class AppColors {
         Color(0xffDA4ECB),
         Color(0xff2C3AE8),
         Color(0xff467FC9),
-        Color(0xff467FC9),
+      ]);
+  static const confirmedGradient = LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [
+        Color(0xff5E4F5C),
+        Color(0xff505273),
+        Color(0xff424A54),
       ]);
   static const iconColor = Colors.white;
   static const border = Color(0xffD3D2D2);

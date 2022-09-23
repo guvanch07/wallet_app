@@ -9,19 +9,19 @@ abstract class TextStyles {
       letterSpacing: 0.29,
       color: AppColors.textMain);
 
-  static const TextStyle headline3 = TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.w700,
-      fontFamily: "HeliosExtC",
-      letterSpacing: 0.29,
-      color: Color(0xffC1C1C1));
-
   static const TextStyle headline2 = TextStyle(
       fontSize: 16.01,
       fontWeight: FontWeight.w700,
       fontFamily: "HeliosExtC",
       letterSpacing: 0.44,
       color: Color(0xffFFFFFF));
+
+  static const TextStyle headline3 = TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w700,
+      fontFamily: "HeliosExtC",
+      letterSpacing: 0.29,
+      color: Color(0xffC1C1C1));
 
   static const TextStyle buttonText = TextStyle(
     color: AppColors.textMain,
@@ -45,12 +45,26 @@ abstract class TextStyles {
     fontFamily: "HeliosExtC",
   );
 
+  static const TextStyle subText3 = TextStyle(
+    color: Color(0xff9D9898),
+    fontSize: 11.3,
+    fontWeight: FontWeight.w400,
+    fontFamily: "HeliosExtC",
+  );
+
   static const TextStyle subText1 = TextStyle(
     color: Color(0xffB8BABD),
     fontSize: 12.25,
     fontWeight: FontWeight.w400,
     fontFamily: "HeliosExtC",
     letterSpacing: 0.12,
+  );
+
+  static const TextStyle numbers = TextStyle(
+    color: AppColors.textMain,
+    fontSize: 26,
+    fontWeight: FontWeight.w400,
+    fontFamily: "HeliosExtC",
   );
 
   static const TextStyle monoska = TextStyle(
