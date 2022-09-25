@@ -8,12 +8,14 @@ import 'package:wallet_app/presentation/pages/second_page/buy_vvs_screen.dart';
 class AppScreen extends StatelessWidget {
   const AppScreen({
     Key? key,
+    required this.height,
   }) : super(key: key);
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 22, right: 22, top: 64),
+      padding: EdgeInsets.only(left: 22, right: 22, top: height * 64),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -32,6 +34,7 @@ class AppScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 4.7),
               const Text('You earned \$892.20 for this month',
                   style: TextStyles.subText2),
             ],

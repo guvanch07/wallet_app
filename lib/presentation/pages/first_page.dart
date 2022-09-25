@@ -5,8 +5,11 @@ class FirstPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('first screen'),
-    );
+    return ListView(
+        children: List.generate(
+            20,
+            (index) => ListTile(
+                  title: Text('$index'),
+                )));
   }
 }

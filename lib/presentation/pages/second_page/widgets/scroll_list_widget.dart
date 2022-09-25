@@ -1,4 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:wallet_app/domain/models/nft_model.dart';
 import 'package:wallet_app/presentation/core/styles/text_styles.dart';
 import 'package:wallet_app/presentation/core/theme/theme_colors.dart';
@@ -8,7 +10,9 @@ import 'package:wallet_app/presentation/widgets/glowaction_button.dart';
 class ScrollListWidget extends StatelessWidget {
   const ScrollListWidget({
     Key? key,
+    required this.height,
   }) : super(key: key);
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -18,22 +22,23 @@ class ScrollListWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text('Frequent Transactions', style: TextStyles.headline3),
-          const SizedBox(height: 21),
+          SizedBox(height: height * 21),
           SizedBox(
-            height: 90,
+            height: height * 90,
             child: Row(
               children: [
                 Column(
                   children: [
                     GlowingActionButton(
+                      size: height * 54,
                       assetName: AppIcon.send,
                       onPressed: () {},
                     ),
-                    const SizedBox(height: 13),
+                    SizedBox(height: height * 13),
                     const Text('Send', style: TextStyles.buttonText),
                   ],
                 ),
-                const SizedBox(width: 24),
+                SizedBox(width: height * 24),
                 const VerticalDivider(
                     color: AppColors.divider, endIndent: 45, indent: 10),
                 Expanded(
@@ -47,10 +52,10 @@ class ScrollListWidget extends StatelessWidget {
                           child: Column(
                             children: [
                               CircleAvatar(
-                                  radius: 28,
+                                  radius: height * 28,
                                   backgroundImage:
                                       AssetImage(nftDataModel[index].iconPath)),
-                              const SizedBox(height: 13),
+                              SizedBox(height: height * 13),
                               Text(nftDataModel[index].name,
                                   style: TextStyles.buttonText
                                       .copyWith(color: Colors.white30))

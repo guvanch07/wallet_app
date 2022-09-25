@@ -30,11 +30,20 @@ class AppHome extends StatelessWidget {
               margin: 31,
               padding: 0,
               child: TabBar(
-                  labelPadding: const EdgeInsets.symmetric(vertical: 10),
+                  labelPadding: const EdgeInsets.symmetric(vertical: 9),
                   indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorColor: AppColors.indicator,
-                  indicatorWeight: 5,
-                  indicatorPadding: const EdgeInsets.symmetric(horizontal: 25),
+                  indicator: BoxDecoration(
+                      color: AppColors.indicator,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.accent.withOpacity(0.5),
+                          spreadRadius: 6,
+                          blurRadius: 15,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(50)),
+                  indicatorPadding:
+                      const EdgeInsets.only(left: 24, right: 24, top: 62),
                   tabs: [
                     Tab(icon: SvgPicture.asset(AppIcon.safari)),
                     Tab(icon: SvgPicture.asset(AppIcon.wallet)),

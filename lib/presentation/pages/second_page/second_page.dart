@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:wallet_app/presentation/core/components/classmorphishm.dart';
 import 'package:wallet_app/presentation/core/theme/theme_colors.dart';
+import 'package:wallet_app/presentation/core/utils/ratio.dart';
 import 'package:wallet_app/presentation/pages/second_page/widgets/app_screen.dart';
 import 'package:wallet_app/presentation/pages/second_page/widgets/card_info.dart';
 import 'package:wallet_app/presentation/pages/second_page/widgets/scroll_list_widget.dart';
@@ -20,6 +21,8 @@ class SecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = Ratio.getHeightRatio(context);
+    //final width = Ratio.getWidthRatio(context);
     return Stack(
       children: [
         Align(
@@ -34,17 +37,17 @@ class SecondPage extends StatelessWidget {
           ),
         ),
         GlassMorphismHollScr(
-          child: Column(
-            children: const [
-              AppScreen(),
-              SizedBox(height: 31.78),
-              CardInfo(),
-              SizedBox(height: 42),
-              ScrollListWidget(),
-              SizedBox(height: 26),
-              _divider,
-              SizedBox(height: 8),
-              SheetTransactionWidget(),
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.zero,
+            children: [
+              AppScreen(height: height),
+              SizedBox(height: height * 31),
+              CardInfo(height: height),
+              SizedBox(height: height * 42),
+              ScrollListWidget(height: height),
+              SizedBox(height: height * 26),
+              SheetTransactionWidget(height: height),
             ],
           ),
         ),

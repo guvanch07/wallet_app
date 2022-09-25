@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:wallet_app/presentation/core/components/classmorphishm.dart';
 import 'package:wallet_app/presentation/core/styles/text_styles.dart';
 import 'package:wallet_app/presentation/core/theme/theme_colors.dart';
 import 'package:wallet_app/presentation/core/utils/path_icon.dart';
 import 'package:flutter/services.dart';
+import 'package:wallet_app/presentation/core/utils/ratio.dart';
+import 'package:wallet_app/presentation/pages/second_page/bloc/calculate_bloc.dart';
 
 import 'package:wallet_app/presentation/widgets/slider_button.dart';
 
@@ -12,8 +16,11 @@ class BuyVVSScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = Ratio.getHeightRatio(context);
+    //final width = Ratio.getWidthRatio(context);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         elevation: 0,
         backgroundColor: AppColors.secondbgc.withOpacity(0.9),
         leading: IconButton(
@@ -37,16 +44,16 @@ class BuyVVSScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  width: 120,
-                  height: 120,
+                  width: 140,
+                  height: 140,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.blue,
                   ),
                 ),
                 Container(
-                  width: 120,
-                  height: 120,
+                  width: 140,
+                  height: 140,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: AppColors.red,
@@ -58,18 +65,20 @@ class BuyVVSScreen extends StatelessWidget {
           GlassMorphismHollScr(
             child: Column(
               children: [
-                const SizedBox(height: 48),
+                SizedBox(height: height * 48),
                 const CartDetailWidget(),
-                const SizedBox(height: 35),
+                SizedBox(height: height * 35),
                 const MoneydisplayWidget(),
-                const SizedBox(height: 69.99),
+                SizedBox(height: height * 53.99), //69.99 - 16
                 const NumberTableWidget(),
                 const Spacer(),
                 AnimatedSwipeToConfirm(
-                  onCancel: () {},
-                  onConfirm: () {},
+                  onCancel: () =>
+                      context.read<CalculateBloc>().submitButton(false),
+                  onConfirm: () =>
+                      context.read<CalculateBloc>().submitButton(true),
                 ),
-                const SizedBox(height: 46)
+                SizedBox(height: height * 46)
               ],
             ),
           ),
@@ -95,28 +104,40 @@ class CartDetailWidget extends StatelessWidget {
                 .copyWith(color: const Color(0xff9D9898), fontSize: 14),
           ),
           const SizedBox(height: 10),
-          AspectRatio(
-            aspectRatio: 312 / 60,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(17),
-                color: AppColors.card,
-              ),
-              child: ListTile(
-                title: Text(
-                  '8600 **** **** 1234',
-                  style: TextStyles.subText3.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white30,
-                  ),
+          Container(
+            padding: const EdgeInsets.only(left: 15, right: 22),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(17),
+              color: AppColors.card,
+            ),
+            child: ListTile(
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+              minVerticalPadding: 0,
+              title: Text(
+                '8600 **** **** 1234',
+                style: TextStyles.subText3.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white30,
                 ),
-                subtitle: Text(
-                  '06/24',
-                  style: TextStyles.headline2.copyWith(fontSize: 11.3),
-                ),
-                leading: Image.asset(AppIcon.cardIcon, width: 40, height: 30),
-                trailing: const Text('change', style: TextStyles.subText3),
               ),
+              subtitle: RichText(
+                  text: TextSpan(children: [
+                TextSpan(
+                    text: '06',
+                    style: TextStyles.headline2.copyWith(fontSize: 11.3)),
+                const TextSpan(text: '/', style: TextStyle(fontSize: 10.3)),
+                TextSpan(
+                    text: '24',
+                    style: TextStyles.headline2.copyWith(fontSize: 11.3))
+              ])),
+
+              // Text(
+              //   '06/24',
+              //   style: TextStyles.headline2.copyWith(fontSize: 11.3),
+              // ),
+              leading: Image.asset(AppIcon.cardIcon, width: 40, height: 30),
+              trailing: const Text('change', style: TextStyles.subText3),
             ),
           )
         ],
@@ -135,11 +156,37 @@ class MoneydisplayWidget extends StatelessWidget {
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(
+              if (context.watch<CalculateBloc>().displayNumbers.isEmpty)
+                TextSpan(
                   text: '0',
-                  style: TextStyles.buttonText.copyWith(fontSize: 64.49)),
+                  style: TextStyles.buttonText.copyWith(
+                    fontSize: 64.49,
+                    color: const Color(0xff727272),
+                  ),
+                )
+              else if (context.watch<CalculateBloc>().sum > 0)
+                TextSpan(
+                  text: '${context.watch<CalculateBloc>().sum}',
+                  style: TextStyles.buttonText.copyWith(
+                    fontSize: 64.49,
+                  ),
+                )
+              else
+                ...context.watch<CalculateBloc>().displayNumbers.map(
+                      (e) => TextSpan(
+                        text: '$e',
+                        style: TextStyles.buttonText.copyWith(
+                            fontSize: context
+                                        .watch<CalculateBloc>()
+                                        .displayNumbers
+                                        .length >
+                                    8
+                                ? 30
+                                : 64.49),
+                      ),
+                    ),
               TextSpan(
-                text: '\$vvs',
+                text: ' \$vvs',
                 style: TextStyles.buttonText.copyWith(fontSize: 32.24),
               ),
             ],
@@ -147,7 +194,7 @@ class MoneydisplayWidget extends StatelessWidget {
         ),
         const SizedBox(height: 30.63),
         Text(
-          '0 USD',
+          '${context.watch<CalculateBloc>().subNumber} USD',
           style: TextStyles.buttonText.copyWith(
             fontSize: 25.79,
             color: const Color(0xffBBBBBB),
@@ -178,6 +225,7 @@ class NumberTableWidget extends StatelessWidget {
                 IconButton(
                   alignment: Alignment.center,
                   onPressed: () {
+                    context.read<CalculateBloc>().addNumbers(1);
                     HapticFeedback.heavyImpact();
                   },
                   icon: const Text(
@@ -188,6 +236,7 @@ class NumberTableWidget extends StatelessWidget {
                 IconButton(
                   alignment: Alignment.center,
                   onPressed: () {
+                    context.read<CalculateBloc>().addNumbers(2);
                     HapticFeedback.heavyImpact();
                   },
                   icon: const Text(
@@ -198,6 +247,7 @@ class NumberTableWidget extends StatelessWidget {
                 IconButton(
                   alignment: Alignment.center,
                   onPressed: () {
+                    context.read<CalculateBloc>().addNumbers(3);
                     HapticFeedback.heavyImpact();
                   },
                   icon: const Text(
@@ -217,6 +267,7 @@ class NumberTableWidget extends StatelessWidget {
                 IconButton(
                   alignment: Alignment.center,
                   onPressed: () {
+                    context.read<CalculateBloc>().addNumbers(4);
                     HapticFeedback.heavyImpact();
                   },
                   icon: const Text(
@@ -227,6 +278,7 @@ class NumberTableWidget extends StatelessWidget {
                 IconButton(
                   alignment: Alignment.center,
                   onPressed: () {
+                    context.read<CalculateBloc>().addNumbers(5);
                     HapticFeedback.heavyImpact();
                   },
                   icon: const Text(
@@ -237,6 +289,7 @@ class NumberTableWidget extends StatelessWidget {
                 IconButton(
                   alignment: Alignment.center,
                   onPressed: () {
+                    context.read<CalculateBloc>().addNumbers(6);
                     HapticFeedback.heavyImpact();
                   },
                   icon: const Text(
@@ -256,6 +309,7 @@ class NumberTableWidget extends StatelessWidget {
                 IconButton(
                   alignment: Alignment.center,
                   onPressed: () {
+                    context.read<CalculateBloc>().addNumbers(7);
                     HapticFeedback.heavyImpact();
                   },
                   icon: const Text(
@@ -266,6 +320,7 @@ class NumberTableWidget extends StatelessWidget {
                 IconButton(
                   alignment: Alignment.center,
                   onPressed: () {
+                    context.read<CalculateBloc>().addNumbers(8);
                     HapticFeedback.heavyImpact();
                   },
                   icon: const Text(
@@ -276,6 +331,7 @@ class NumberTableWidget extends StatelessWidget {
                 IconButton(
                   alignment: Alignment.center,
                   onPressed: () {
+                    context.read<CalculateBloc>().addNumbers(9);
                     HapticFeedback.heavyImpact();
                   },
                   icon: const Text(
@@ -315,9 +371,10 @@ class NumberTableWidget extends StatelessWidget {
               IconButton(
                 alignment: Alignment.center,
                 onPressed: () {
+                  context.read<CalculateBloc>().removeNumbers();
                   HapticFeedback.heavyImpact();
                 },
-                icon: const Icon(Icons.close),
+                icon: SvgPicture.asset(AppIcon.close),
               ),
             ]),
           ]),
