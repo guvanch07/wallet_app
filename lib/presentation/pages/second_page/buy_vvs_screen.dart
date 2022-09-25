@@ -1,14 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+
 import 'package:wallet_app/presentation/core/components/classmorphishm.dart';
 import 'package:wallet_app/presentation/core/styles/text_styles.dart';
 import 'package:wallet_app/presentation/core/theme/theme_colors.dart';
 import 'package:wallet_app/presentation/core/utils/path_icon.dart';
-import 'package:flutter/services.dart';
 import 'package:wallet_app/presentation/core/utils/ratio.dart';
 import 'package:wallet_app/presentation/pages/second_page/bloc/calculate_bloc.dart';
-
 import 'package:wallet_app/presentation/widgets/slider_button.dart';
 
 class BuyVVSScreen extends StatelessWidget {
@@ -44,16 +45,17 @@ class BuyVVSScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  width: 140,
-                  height: 140,
+                  width: 110,
+                  height: 110,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.blue,
+                    color: AppColors.accent,
                   ),
                 ),
+                const SizedBox(height: 150),
                 Container(
-                  width: 140,
-                  height: 140,
+                  width: 110,
+                  height: 110,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: AppColors.red,
@@ -68,17 +70,18 @@ class BuyVVSScreen extends StatelessWidget {
                 SizedBox(height: height * 48),
                 const CartDetailWidget(),
                 SizedBox(height: height * 35),
-                const MoneydisplayWidget(),
-                SizedBox(height: height * 53.99), //69.99 - 16
+                MoneydisplayWidget(height: height),
+                SizedBox(height: height * 43.99), //69.99 - 32
                 const NumberTableWidget(),
                 const Spacer(),
+
                 AnimatedSwipeToConfirm(
                   onCancel: () =>
                       context.read<CalculateBloc>().submitButton(false),
                   onConfirm: () =>
                       context.read<CalculateBloc>().submitButton(true),
                 ),
-                SizedBox(height: height * 46)
+                SizedBox(height: height * 36),
               ],
             ),
           ),
@@ -121,21 +124,10 @@ class CartDetailWidget extends StatelessWidget {
                   color: Colors.white30,
                 ),
               ),
-              subtitle: RichText(
-                  text: TextSpan(children: [
-                TextSpan(
-                    text: '06',
-                    style: TextStyles.headline2.copyWith(fontSize: 11.3)),
-                const TextSpan(text: '/', style: TextStyle(fontSize: 10.3)),
-                TextSpan(
-                    text: '24',
-                    style: TextStyles.headline2.copyWith(fontSize: 11.3))
-              ])),
-
-              // Text(
-              //   '06/24',
-              //   style: TextStyles.headline2.copyWith(fontSize: 11.3),
-              // ),
+              subtitle: Text(
+                '06/24',
+                style: TextStyles.headline2.copyWith(fontSize: 11.3),
+              ),
               leading: Image.asset(AppIcon.cardIcon, width: 40, height: 30),
               trailing: const Text('change', style: TextStyles.subText3),
             ),
@@ -147,7 +139,11 @@ class CartDetailWidget extends StatelessWidget {
 }
 
 class MoneydisplayWidget extends StatelessWidget {
-  const MoneydisplayWidget({Key? key}) : super(key: key);
+  const MoneydisplayWidget({
+    Key? key,
+    required this.height,
+  }) : super(key: key);
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +188,7 @@ class MoneydisplayWidget extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 30.63),
+        SizedBox(height: height * 30.63),
         Text(
           '${context.watch<CalculateBloc>().subNumber} USD',
           style: TextStyles.buttonText.copyWith(
@@ -258,9 +254,9 @@ class NumberTableWidget extends StatelessWidget {
               ],
             ),
             const TableRow(children: [
-              SizedBox(height: 13),
-              SizedBox(height: 13),
-              SizedBox(height: 13),
+              SizedBox(height: 10),
+              SizedBox(height: 10),
+              SizedBox(height: 10),
             ]),
             TableRow(
               children: [
@@ -300,9 +296,9 @@ class NumberTableWidget extends StatelessWidget {
               ],
             ),
             const TableRow(children: [
-              SizedBox(height: 13),
-              SizedBox(height: 13),
-              SizedBox(height: 13),
+              SizedBox(height: 10),
+              SizedBox(height: 10),
+              SizedBox(height: 10),
             ]),
             TableRow(
               children: [
@@ -342,9 +338,9 @@ class NumberTableWidget extends StatelessWidget {
               ],
             ),
             const TableRow(children: [
-              SizedBox(height: 13), // 8 + 8 + 13 = 29
-              SizedBox(height: 13),
-              SizedBox(height: 13),
+              SizedBox(height: 10), // 9 + 9 + 13 = 29
+              SizedBox(height: 10),
+              SizedBox(height: 10),
             ]),
             TableRow(children: [
               IconButton(

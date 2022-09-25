@@ -58,7 +58,7 @@ class SheetTransactionWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: height * 18), // 5 + padding ListTile = 23.51
+                  SizedBox(height: height * 13), // 5 + padding ListTile = 23.51
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 27.8),
                     child: _ListTile(
@@ -112,7 +112,7 @@ class _ListTile extends StatelessWidget {
   final String title;
   final String subTitle;
   final String assetName;
-  final double money;
+  final int money;
   final double height;
 
   @override
@@ -132,7 +132,7 @@ class _ListTile extends StatelessWidget {
       title: Text(title, style: TextStyles.headline2),
       subtitle: Text(subTitle, style: TextStyles.subText1),
       leading: CircleAvatar(
-          radius: height * 30, backgroundImage: AssetImage(assetName)),
+          radius: height * 26, backgroundImage: AssetImage(assetName)),
     );
   }
 }

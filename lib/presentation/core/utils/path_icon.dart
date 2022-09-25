@@ -16,6 +16,7 @@ abstract class AppIcon {
   static const yellowMonkey = 'assets/png/monkey_yellow.png';
   static const arrowBack = 'assets/png/right_arrow.png';
   static const cardIcon = 'assets/png/csrd_icon.png';
+  static const ellipsPng = 'assets/png/ellips.png';
 
   ///buton icons
   static const sliderToggle = 'assets/toggle.svg';
