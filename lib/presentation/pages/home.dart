@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:wallet_app/presentation/core/components/classmorphishm.dart';
 import 'package:wallet_app/presentation/core/theme/theme_colors.dart';
 import 'package:wallet_app/presentation/core/utils/path_icon.dart';
-import 'package:wallet_app/presentation/pages/first_page.dart';
+import 'package:wallet_app/presentation/pages/first_page/first_page.dart';
 import 'package:wallet_app/presentation/pages/fourth_page.dart';
 import 'package:wallet_app/presentation/pages/second_page/second_page.dart';
 import 'package:wallet_app/presentation/pages/third_page.dart';

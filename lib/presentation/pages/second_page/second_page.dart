@@ -42,11 +42,11 @@ class SecondPage extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: [
               AppScreen(height: height),
-              SizedBox(height: height * 31),
+              SizedBox(height: height * 28), //31
               CardInfo(height: height),
-              SizedBox(height: height * 42),
+              SizedBox(height: height * 35), //42
               ScrollListWidget(height: height),
-              SizedBox(height: height * 26),
+              SizedBox(height: height * 18), //26
               SheetTransactionWidget(height: height),
             ],
           ),

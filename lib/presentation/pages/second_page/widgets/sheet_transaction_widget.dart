@@ -25,7 +25,7 @@ class SheetTransactionWidget extends StatelessWidget {
             color: AppColors.divider,
             thickness: 3,
           ),
-          SizedBox(height: height * 9.68),
+          SizedBox(height: height * 8), //9.68
           DecoratedBox(
               decoration: const BoxDecoration(
                 color: AppColors.card,
@@ -37,7 +37,7 @@ class SheetTransactionWidget extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(
-                        left: 27.8, top: height * 27.2, right: 27.8),
+                        left: 27.8, top: height * 25, right: 27.8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

@@ -71,7 +71,7 @@ class BuyVVSScreen extends StatelessWidget {
                 const CartDetailWidget(),
                 SizedBox(height: height * 35),
                 MoneydisplayWidget(height: height),
-                SizedBox(height: height * 43.99), //69.99 - 32
+                SizedBox(height: height * 40), //69.99 - 32
                 const NumberTableWidget(),
                 const Spacer(),
 
@@ -188,7 +188,7 @@ class MoneydisplayWidget extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: height * 30.63),
+        SizedBox(height: height * 25),
         Text(
           '${context.watch<CalculateBloc>().subNumber} USD',
           style: TextStyles.buttonText.copyWith(
