@@ -1,48 +1,63 @@
-import 'dart:developer';
+import 'dart:async';
 
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+
 import 'package:wallet_app/domain/models/all_sports_data/map_marker_data_model.dart';
+import 'package:wallet_app/domain/usecase/get_data_usecase.dart';
+import 'package:wallet_app/presentation/pages/first_page/first_page.dart';
 
-const query = """
-{
-  map_markers(general:
-  {language: "by",city: "minsk",country: "by",subscription: "platinum",
-  activity:[],tag:[]},
-  leftTopPoint:{lat:53.93051341740901,lng:27.332954406738285},
-  centerPoint:{lat: 53.84300734638802,lng: 27.477321624755863}) {
-    lat
-    lng
-    suppliers {
-        id
-        name
-    }
-  }
-}
-""";
+class GetAllDataBloc extends ChangeNotifier {
+  final GetAllDataUseCase _getAllDataUseCase;
 
-Future<void> getGraphSql() async {
-  HttpLink link = HttpLink('https://xn--k1aahcehedi.xn--90ais/graphql');
-
-  GraphQLClient qlClient = GraphQLClient(
-    link: link,
-    cache: GraphQLCache(
-      store: HiveStore(),
-    ),
+  GetAllDataBloc(
+    this._getAllDataUseCase,
   );
+  Stream<List<MapMarker>> get getAllData => _getAllDataUseCase();
 
-  QueryResult queryResult =
-      await qlClient.query(QueryOptions(document: gql(query)));
+  Completer<GoogleMapController> get controller => _controller;
 
-  final list = queryResult.data?['map_markers'] as List;
+  final Completer<GoogleMapController> _controller = Completer();
 
-  final mapper = list.map((e) {
-    log(e.toString());
-    return MapMarker.fromMap(e as Map<String, dynamic>);
-  }).toList();
+  Set<Marker> maker(BuildContext context, List<MapMarker>? data) {
+    if (data == null) return {};
+    Set<Marker> markers = {};
+    for (var i = 0; i < data.length; i++) {
+      for (var k = 0; k < data[i].suppliers.length; k++) {
+        final marker = Marker(
+          onTap: () => showDialog(
+              context: context,
+              builder: (context) => DialogWidget(
+                    name: '${data[i].suppliers[k].name}',
+                  )),
+          markerId: MarkerId('$i'),
+          //infoWindow: InfoWindow(title: data[i].lat.toString()),
+          position: LatLng(data[i].lat ?? 0, data[i].lng ?? 0),
+        );
+        markers.add(marker);
+      }
+    }
 
-  print(mapper);
+    return markers;
+  }
 
-  //log(queryResult.data?['map_markers'].toString() ?? '');
-  //log(data.suppliers.toString());
-  print(queryResult.exception);
+  void currentLocation() async {
+    final GoogleMapController controller = await _controller.future;
+    LocationData? currentLocation;
+    var location = Location();
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+      currentLocation = null;
+    }
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        bearing: 0,
+        target: LatLng(
+            currentLocation?.latitude ?? 0, currentLocation?.longitude ?? 0),
+        zoom: 17.0,
+      ),
+    ));
+  }
 }

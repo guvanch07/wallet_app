@@ -53,7 +53,7 @@ class UnauthorisedException implements Exception {}
 
 class LocalAuthenificationException implements Exception {}
 
-Map<String, dynamic> _response(http.Response response) {
+Map<String, dynamic> response(http.Response response) {
   // log('⚙️ \x1B[35mstatus ${response.statusCode}, body: ${response.body.toString()}',
   //     name: 'RESPONSE');
   switch (response.statusCode) {

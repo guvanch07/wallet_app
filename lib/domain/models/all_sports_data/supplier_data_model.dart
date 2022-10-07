@@ -7,16 +7,6 @@ class Supplier {
   final String? id;
   final String? name;
 
-  Supplier copyWith({
-    String? id,
-    String? name,
-  }) {
-    return Supplier(
-      id: id ?? this.id,
-      name: name ?? this.name,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
@@ -30,10 +20,6 @@ class Supplier {
       name: map['name'] != null ? map['name'] as String : null,
     );
   }
-
-  // String toJson() => json.encode(toMap());
-
-  // factory Supplier.fromJson(String source) => Supplier.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'Supplier(id: $id, name: $name)';

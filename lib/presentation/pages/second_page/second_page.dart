@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 import 'package:wallet_app/presentation/core/components/classmorphishm.dart';
@@ -9,12 +8,12 @@ import 'package:wallet_app/presentation/pages/second_page/widgets/card_info.dart
 import 'package:wallet_app/presentation/pages/second_page/widgets/scroll_list_widget.dart';
 import 'package:wallet_app/presentation/pages/second_page/widgets/sheet_transaction_widget.dart';
 
-const _divider = Divider(
-    indent: 185,
-    endIndent: 185,
-    height: 20,
-    color: AppColors.divider,
-    thickness: 3);
+// const _divider = Divider(
+//     indent: 185,
+//     endIndent: 185,
+//     height: 20,
+//     color: AppColors.divider,
+//     thickness: 3);
 
 class SecondPage extends StatelessWidget {
   const SecondPage({Key? key}) : super(key: key);

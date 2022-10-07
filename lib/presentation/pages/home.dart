@@ -17,12 +17,14 @@ class AppHome extends StatelessWidget {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        body: const TabBarView(children: [
-          FirstPage(),
-          SecondPage(),
-          ThirdPage(),
-          FourthPage(),
-        ]),
+        body: const TabBarView(
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+              FirstPage(),
+              SecondPage(),
+              ThirdPage(),
+              FourthPage(),
+            ]),
         bottomNavigationBar: Stack(
           children: [
             const _UnderStack(),
