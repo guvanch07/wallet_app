@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import 'package:provider/provider.dart';
-
 import 'package:wallet_app/domain/models/all_sports_data/map_marker_data_model.dart';
 import 'package:wallet_app/presentation/core/theme/theme_colors.dart';
 import 'package:wallet_app/presentation/pages/first_page/bloc/gql.dart';
@@ -18,7 +16,7 @@ class FirstPage extends StatelessWidget {
         builder: (context, snapshot) {
           final data = snapshot.data;
           if (data == null) {
-            return const CircularProgressIndicator.adaptive();
+            return const Center(child: CircularProgressIndicator.adaptive());
           }
 
           return _GoogleMapWidget(data: data);

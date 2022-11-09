@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
-
+import 'package:wallet_app/data/service/location_permitions.dart';
 import 'package:wallet_app/domain/models/all_sports_data/map_marker_data_model.dart';
 import 'package:wallet_app/domain/usecase/get_data_usecase.dart';
 import 'package:wallet_app/presentation/pages/first_page/first_page.dart';
@@ -44,18 +44,16 @@ class GetAllDataBloc extends ChangeNotifier {
 
   void currentLocation() async {
     final GoogleMapController controller = await _controller.future;
-    LocationData? currentLocation;
-    var location = Location();
-    try {
-      currentLocation = await location.getLocation();
-    } on Exception {
-      currentLocation = null;
-    }
+
+    final location = LocationService();
+
+    Position position = await location.determinePosition();
+
+    //try {} on Exception {}
     controller.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(
         bearing: 0,
-        target: LatLng(
-            currentLocation?.latitude ?? 0, currentLocation?.longitude ?? 0),
+        target: LatLng(position.latitude, position.longitude),
         zoom: 17.0,
       ),
     ));
